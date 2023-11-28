@@ -25,7 +25,7 @@ We've tried to make editing an existing, public file as simple as possible.
 
 1. Using Markdown language, make your changes to the file. For info about how to edit content using Markdown, see the GitHub's [Mastering Markdown](https://guides.github.com/features/mastering-markdown/) documentation.
 
-   If your Longbridge staff, please reading and following the [Longbridge Writing Style Guide](https://longbridge.feishu.cn/wiki/wikcnqOEWHe43bdSLMP0S42vvvg) and the [OpenAPI Writing Guide](https://longbridge.feishu.cn/wiki/wikcnb0RtZ8OEuAodGBXaOL6Nxh).
+   If your Longbridge staff, please reading and following the [Longbridge Writing Style Guide](https://longport.feishu.cn/wiki/wikcnqOEWHe43bdSLMP0S42vvvg) and the [OpenAPI Writing Guide](https://longport.feishu.cn/wiki/wikcnb0RtZ8OEuAodGBXaOL6Nxh).
 
 1. Make your suggested change, and then select **Preview changes** to make sure it looks correct.
 

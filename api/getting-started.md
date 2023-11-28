@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 ## 前言
 
-[Whale API SDK](https://github.com/longbridgeapp/openapi-sdk) 基于 Rust 底层提供标准实现，目前我们已经发布了 Python、Node.js、Rust、C++、[Golang](https://github.com/longbridgeapp/openapi-go) 的 SDK，其他语言的支持后面会陆续推出。
+[Whale API SDK](https://github.com/longportapp/openapi-sdk) 基于 Rust 底层提供标准实现，目前我们已经发布了 Python、Node.js、Rust、C++、[Golang](https://github.com/longportapp/openapi-go) 的 SDK，其他语言的支持后面会陆续推出。
 
 ## 环境需求
 
@@ -41,14 +41,14 @@ import TabItem from '@theme/TabItem';
   <TabItem value="python" label="Python" default>
 
 ```bash
-pip3 install longbridge
+pip3 install longport
 ```
 
   </TabItem>
   <TabItem value="javascript" label="NodeJS">
 
 ```bash
-yarn install longbridge
+yarn install longport
 ```
 
   </TabItem>
@@ -56,7 +56,7 @@ yarn install longbridge
 
 ```toml
 [dependencies]
-longbridge = "*"
+longport = "*"
 tokio = { version = "1", features = "rt-multi-thread" }
 ```
 
@@ -66,7 +66,7 @@ tokio = { version = "1", features = "rt-multi-thread" }
 ```xml
 <dependencies>
     <dependency>
-        <groupId>io.github.longbridgeapp</groupId>
+        <groupId>io.github.longportapp</groupId>
         <artifactId>openapi-sdk</artifactId>
         <version>LATEST</version>
     </dependency>
@@ -77,7 +77,7 @@ tokio = { version = "1", features = "rt-multi-thread" }
   <TabItem value="golang" label="Go">
 
 ```shell
-go get github.com/longbridgeapp/openapi-go
+go get github.com/longportapp/openapi-go
 ```
 
   </TabItem>
@@ -103,14 +103,14 @@ SDK 提供了配置的构造方法：
   <TabItem value="python" label="Python" default>
 
 ```python
-from longbridge.openapi import TradeContext, Config, HttpClient
+from longport.openapi import TradeContext, Config, HttpClient
 
 # get config fields from config file or env or some secret management system
 key = "xxx"
 secret = "xxx"
 token = "xxx"
-http_url = "https://openapi.longbridge.xyz"
-trade_url = "wss://openapi-trade.longbridge.xyz"
+http_url = "https://openapi.longport.xyz"
+trade_url = "wss://openapi-trade.longport.xyz"
 
 conf = Config(app_key = key, app_secret = secret, access_token = token, http_url = http_url, trade_ws_url = trade_url)
 http_cli = HttpClient(app_key = conf.app_key, app_secret = conf.app_secret, http_url = conf.http_url)
@@ -121,14 +121,14 @@ ctx = TradeContext(conf)
   <TabItem value="javascript" label="NodeJS" default>
 
 ```javascript
-import { Config, HttpClient, TradeContext } from 'longbridge'
+import { Config, HttpClient, TradeContext } from 'longport'
 
 const conf = new Config({
     appKey: 'xxx',
     appSecret: 'xxx',
     accessToken: 'xxx',
-    httpUrl: 'https://openapi.longbridge.xyz',
-    tradeWsUrl: 'wss://openapi-trade.longbridge.xyz'
+    httpUrl: 'https://openapi.longport.xyz',
+    tradeWsUrl: 'wss://openapi-trade.longport.xyz'
 })
 
 const httpClient = new HttpClient(conf.httpUrl, conf.appKey, conf.appSecret, conf.accessToken)
@@ -147,15 +147,15 @@ try {
 use std::sync::Arc;
 use serde_json::json;
 
-use longbridge::trade::{TradeContext};
-use longbridge::{httpclient::HttpClient, Config};
+use longport::trade::{TradeContext};
+use longport::{httpclient::HttpClient, Config};
 
 # [tokio::main]
 
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let conf = Config::new("appKey", "appSecret", "accessToken")
-        .http_url("https://openapi.longbridge.xyz")
-        .trade_ws_url("wss://openapi-trade.longbridge-xyz");
+        .http_url("https://openapi.longport.xyz")
+        .trade_ws_url("wss://openapi-trade.longport-xyz");
     let http_cli = conf.create_http_client();
 
     let (ctx, receiver) = TradeContext::try_new(Arc::new(conf)).await?;
@@ -169,18 +169,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   <TabItem value="java" label="Java" default>
 
 ```java
-import com.longbridge.*;
-import com.longbridge.trade.*;
+import com.longport.*;
+import com.longport.trade.*;
 
 class Main {
     public static void main(String[] args) throws Exception {
         try (
             Config config = new ConfigBuilder("appkey", "appsecret", "accessToken")
-                .HttpUrl("https://openapi.longbridge.xyz")
-                .tradeWebsocketUrl("wss://openapi-trade.longbridge.xyz")
+                .HttpUrl("https://openapi.longport.xyz")
+                .tradeWebsocketUrl("wss://openapi-trade.longport.xyz")
                 .build();
             TradeContext ctx = TradeContext.create(config).get(); 
-            HttpClient cli = new HttpClient("https://openapi.longbridge.xyz", "appkey", "appsecret", "accesstoken");
+            HttpClient cli = new HttpClient("https://openapi.longport.xyz", "appkey", "appsecret", "accesstoken");
         ) {
             ctx.subscribe(new TopicType[] { TopicType.Private});
             ctx.setOnOrderChange((PushOrderChanged orderEvent) -> {
@@ -204,20 +204,20 @@ import (
     "time"
     "encoding/json"
 
-    "github.com/longbridgeapp/openapi-go/config"
-    "github.com/longbridgeapp/openapi-go/http"
-    "github.com/longbridgeapp/openapi-go/trade"
+    "github.com/longportapp/openapi-go/config"
+    "github.com/longportapp/openapi-go/http"
+    "github.com/longportapp/openapi-go/trade"
 )
 
 
 func main() {
     
     conf := Config{
-        HttpURL: "https://openapi.longbridge.xyz",
+        HttpURL: "https://openapi.longport.xyz",
         AppKey: "appkey",
         AppSecret: "appsecret",
         AccessToken: "accesstoken",
-        TradeUrl: "wss://openapi-trade.longbridge.xyz",
+        TradeUrl: "wss://openapi-trade.longport.xyz",
     }
 
     tctx, err := trade.NewFromCfg(conf)
@@ -244,22 +244,22 @@ func main() {
 
 | 环境变量| 说明 | 例子 |
 |---------------- | --------------- | :--------------- |
-| LONGBRIDGE_APP_KEY    | access key   | access_key |
-| LONGBRIDGE_APP_SECRET    | access secret key    |  access_secret_key |
-| LONGBRIDGE_ACCESS_TOKEN | access token | tn_xxx |
-| LONGBRIDGE_HTTP_URL | API Endpoint | <https://openapi.longbridge.xyz> |
-| LONGBRIDGE_TRADE_WS_URL | Websocket Endpoint | wss://openapi-trade.longbridge.xyz |
+| LONGPORT_APP_KEY    | access key   | access_key |
+| LONGPORT_APP_SECRET    | access secret key    |  access_secret_key |
+| LONGPORT_ACCESS_TOKEN | access token | tn_xxx |
+| LONGPORT_HTTP_URL | API Endpoint | <https://openapi.longport.xyz> |
+| LONGPORT_TRADE_WS_URL | Websocket Endpoint | wss://openapi-trade.longport.xyz |
 
 #### macOS / Linux 环境下设置环境变量
 
 打开终端，输入下面的命令即可：
 
 ```bash
-export LONGBRIDGE_APP_KEY="获取到的 Access Key"
-export LONGBRIDGE_APP_SECRET="获取到 的 Access Secret Key"
-export LONGBRIDGE_ACCESS_TOKEN="获取到的 Access Token"
-export LONGBRIDGE_HTTP_URL="https://openapi.longbridge.xyz" # 测试 Whale API
-export LONGBRIDGE_TRADE_WS_URL="wss://openapi-trade.longbridge.xyz" # 测试 Whale API Websocket
+export LONGPORT_APP_KEY="获取到的 Access Key"
+export LONGPORT_APP_SECRET="获取到 的 Access Secret Key"
+export LONGPORT_ACCESS_TOKEN="获取到的 Access Token"
+export LONGPORT_HTTP_URL="https://openapi.longport.xyz" # 测试 Whale API
+export LONGPORT_TRADE_WS_URL="wss://openapi-trade.longport.xyz" # 测试 Whale API Websocket
 ```
 
 #### Windows 下设置环境变量
@@ -269,19 +269,19 @@ Windows 要稍微复杂一些，按下 `Win + R` 快捷键，输入 `cmd` 命令
 在命令行里面输入下面的命令设置环境变量：
 
 ```bash
-C:\Users\jason> setx LONGBRIDGE_APP_KEY "获取到的 App Key"
+C:\Users\jason> setx LONGPORT_APP_KEY "获取到的 App Key"
 成功：指定的值已得到保存。
 
-C:\Users\jason> setx LONGBRIDGE_APP_SECRET "获取到的 App Secret"
+C:\Users\jason> setx LONGPORT_APP_SECRET "获取到的 App Secret"
 成功：指定的值已得到保存。
 
-C:\Users\jason> setx LONGBRIDGE_ACCESS_TOKEN "获取到的 Access Token"
+C:\Users\jason> setx LONGPORT_ACCESS_TOKEN "获取到的 Access Token"
 成功：指定的值已得到保存。
 
-C:\Users\jason> setx LONGBRIDGE_HTTP_URL "https://openapi.longbridge.xyz"
+C:\Users\jason> setx LONGPORT_HTTP_URL "https://openapi.longport.xyz"
 成功：指定的值已得到保存。
 
-C:\Users\jason> setx LONGBRIDGE_TRADE_WS_URL "https://openapi-trade.longbridge.xyz"
+C:\Users\jason> setx LONGPORT_TRADE_WS_URL "https://openapi-trade.longport.xyz"
 成功：指定的值已得到保存。
 
 ```
@@ -296,17 +296,17 @@ Windows 环境变量限制，当上面命令都执行成功以后，你需要重
 
 ```bash
 C:\Users\jason> set LONGBRIDGE
-LONGBRIDGE_APP_KEY=xxxxxxx
-LONGBRIDGE_APP_SECRET=xxxxxx
-LONGBRIDGE_ACCESS_TOKEN=xxxxxxx
-LONGBRIDGE_HTTP_URL=https://openapi.longbridge.xyz
-LONGBRIDGE_TRADE_WS_URL=https://openapi-trade.longbridge.xyz
+LONGPORT_APP_KEY=xxxxxxx
+LONGPORT_APP_SECRET=xxxxxx
+LONGPORT_ACCESS_TOKEN=xxxxxxx
+LONGPORT_HTTP_URL=https://openapi.longport.xyz
+LONGPORT_TRADE_WS_URL=https://openapi-trade.longport.xyz
 ```
 
 如果能正确打印你刚才设置的值，那么环境变量就是对了。
 
 :::tip
-建议您设置好 `LONGBRIDGE_APP_KEY`, `LONGBRIDGE_APP_SECRET`, `LONGBRIDGE_ACCESS_TOKEN`, `LONGBRIDGE_HTTP_URL`, `LONGBRIDGE_TRADE_WS_URL` 这几个环境变量。我们为了演示方便，后面各章节文档中的示例代码都会使用这几个环境变量。
+建议您设置好 `LONGPORT_APP_KEY`, `LONGPORT_APP_SECRET`, `LONGPORT_ACCESS_TOKEN`, `LONGPORT_HTTP_URL`, `LONGPORT_TRADE_WS_URL` 这几个环境变量。我们为了演示方便，后面各章节文档中的示例代码都会使用这几个环境变量。
 
 如您在 Windows 环境不方便使用环境变量，可根据个人需要，修改代码。
 :::
@@ -323,7 +323,7 @@ LONGBRIDGE_TRADE_WS_URL=https://openapi-trade.longbridge.xyz
 创建 `whale.py` 贴入下面的代码：
 
 ```python
-from longbridge.openapi import TradeContext, Config, HttpClient, PushOrderChanged
+from longport.openapi import TradeContext, Config, HttpClient, PushOrderChanged
 
 config = Config.from_env()
 httpcli = HttpClient.from_env()
@@ -360,7 +360,7 @@ python whale.py
 创建 `whale.js` 贴入下面的代码：
 
 ```js
-import { Config, TradeContext, HttpClient, TopicType } from 'longbridge'
+import { Config, TradeContext, HttpClient, TopicType } from 'longport'
 
 const config = Config.fromEnv()
 const httpcli = HttpClient.fromEnv()
@@ -403,8 +403,8 @@ node whale.js
 use std::sync::Arc;
 use serde_json::json;
 
-use longbridge::trade::{TradeContext, TopicType};
-use longbridge::{httpclient::HttpClient, Config};
+use longport::trade::{TradeContext, TopicType};
+use longport::{httpclient::HttpClient, Config};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -447,8 +447,8 @@ cargo run
 创建 `Main.java` 贴入下面的代码：
 
 ```java
-import com.longbridge.*;
-import com.longbridge.trade.*;
+import com.longport.*;
+import com.longport.trade.*;
 
 class Main {
     public static void main(String[] args) throws Exception {
@@ -490,7 +490,7 @@ mvn compile exec:exec
 ```shell
 cd whale
 go mod init whale
-go get github.com/longbridgeapp/openapi-go
+go get github.com/longportapp/openapi-go
 ```
 
 创建 `main.go`，贴入一下内容：
@@ -504,9 +504,9 @@ import (
     "time"
     "encoding/json"
 
-    "github.com/longbridgeapp/openapi-go/config"
-    "github.com/longbridgeapp/openapi-go/http"
-    "github.com/longbridgeapp/openapi-go/trade"
+    "github.com/longportapp/openapi-go/config"
+    "github.com/longportapp/openapi-go/http"
+    "github.com/longportapp/openapi-go/trade"
 )
 
 
@@ -569,6 +569,6 @@ go run ./
 
 SDK 的详细 API 文档请访问：
 
-<https://longbridgeapp.github.io/openapi-sdk/>
+<https://longportapp.github.io/openapi-sdk/>
 
 ## 反馈及沟通

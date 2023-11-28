@@ -8,7 +8,7 @@ const openapiDomain = 'https://open.longportapp.com'
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'LongPort OpenAPI',
+  title: 'LongBridge WhaleAPI',
   url: 'https://open.longportapp.com',
   baseUrl: '/',
   organizationName: 'longbridgeapp',
